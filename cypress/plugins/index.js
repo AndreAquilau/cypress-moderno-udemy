@@ -16,10 +16,10 @@
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
-///<reference types="cypress" />
+/// <reference types="cypress" />
 
-const webpackPreprocessor = require('@cypress/webpack-preprocessor');
+const cypressTypeScriptPreprocessor = require('./cy-ts-preprocessor');
 
-module.exports = (on) => {
-  on('file:preprocessor', webpackPreprocessor())
-}
+module.exports = on => {
+  on('file:preprocessor', cypressTypeScriptPreprocessor);
+};

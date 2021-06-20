@@ -1,10 +1,12 @@
 describe('Primeiro conjunto de testes', () => {
+  // Before Initialize
   beforeEach(() => {
     // Acessando a pagina web
     cy.visit('/');
   });
 
-  it('Contabilizar a quantidade de elementos na sessao da pagina principal', () => {
+  // Caso 1
+  it.skip('Contabilizar a quantidade de elementos na sessao da pagina principal', () => {
     // Verificar a quantidade de elementos disponivel
     cy.get('#homefeatured .product-container').should('have.length', 7);
 
@@ -16,7 +18,8 @@ describe('Primeiro conjunto de testes', () => {
     cy.get('@ProdutosPopulares').should('have.length', 7);
   });
 
-  it('Agregar elemento do tipo "blouse" ao carrinho de compra na pagina principal', () => {
+  // Caso 2
+  it.skip('Agregar elemento do tipo "blouse" ao carrinho de compra na pagina principal', () => {
     // Obter o elemento homefeatured .product-container
     cy.get('#homefeatured .product-container').as('ProdutosPopulares');
     let price: string;
@@ -48,5 +51,53 @@ describe('Primeiro conjunto de testes', () => {
       .should('contain.text', 'There is 1 item in your cart.')
       // Verifica se e visivel
       .should('be.visible');
+  });
+
+  // Caso3
+  it('Verificando se no drop down de womem, tem os elementos necessarios', () => {
+    // Flutuando Sobre Os Elementos
+    cy.get('#block_top_menu > ul > li:nth-child(1) > ul').invoke(
+      // Acao
+      'attr',
+      // nome do tributo
+      'style',
+      // new value atributo
+      'display: block',
+    );
+
+    // Verificar se os elementos do drop down estao visiveis
+    cy.get('a[title="Tops"]').should('be.visible');
+    cy.get('a[title="T-shirts"]').should('be.visible');
+    cy.get('a[title="Blouses"]').should('be.visible');
+    cy.get('a[title="Dresses"]').should('be.visible');
+    // O '^=' significa para proucurar a palavra que se inicie com seria tipo like "andre%"
+    cy.get('a[title^="Casual"]').should('be.visible');
+    cy.get('a[title^="Evening"]').should('be.visible');
+    cy.get('a[title^="Summer"]').should('be.visible');
+  });
+
+  // Caso 4
+  it('Verificar se os checkboxes estao funcionando', () => {
+    cy.get('.sf-menu > :nth-child(2) > .sf-with-ul').as('MenuDresses');
+    cy.get('@MenuDresses').click();
+
+    // Capturando Container com li
+    cy.get(
+      '[class="nomargin hiddable col-lg-6"]:has(a[href*="categories-casual_dresses"]) input',
+    )
+      // Faz um checked em um input do type check
+      .check()
+      // Verifica se o input esta como checado
+      .should('be.checked');
+
+    cy.get(
+      '[class="nomargin hiddable col-lg-6"]:has(a[href*="categories-evening_dresses"]) input',
+    )
+      // Verifica se o input nao esta checado
+      .should('not.checked');
+
+    cy.get(
+      '[class="nomargin hiddable col-lg-6"]:has(a[href*="categories-summer_dresses"]) input',
+    ).should('not.checked');
   });
 });

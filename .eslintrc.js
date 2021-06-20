@@ -19,5 +19,8 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off',
     'global-require': 'off',
     'no-useless-escape': 'off',
+    'no-unused-vars': 'off',
+    'no-shadow': 'off',
+    'no-use-before-define': 'off',
   },
 };

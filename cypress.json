@@ -1,6 +1,7 @@
 {
+  "baseUrl": "http://automationpractice.com/index.php",
   "env": {
-    "urlOfTestPage": "http://automationpractice.com/index.php'"
+    "urlOfTestPage": "http://automationpractice.com/index.php"
   },
   "chromeWebSecurity": false
 }

@@ -3,6 +3,7 @@ describe('Primeiro conjunto de testes', () => {
   beforeEach(() => {
     // Acessando a pagina web
     cy.visit('/');
+    cy.wait(3000);
   });
 
   // Caso 1
@@ -18,7 +19,7 @@ describe('Primeiro conjunto de testes', () => {
     cy.get('@ProdutosPopulares').should('have.length', 7);
   });
 
-  // Caso 2
+  // Caso 2 List
   it.skip('Agregar elemento do tipo "blouse" ao carrinho de compra na pagina principal', () => {
     // Obter o elemento homefeatured .product-container
     cy.get('#homefeatured .product-container').as('ProdutosPopulares');
@@ -53,8 +54,8 @@ describe('Primeiro conjunto de testes', () => {
       .should('be.visible');
   });
 
-  // Caso3
-  it('Verificando se no drop down de womem, tem os elementos necessarios', () => {
+  // Caso3 Hove && Dropdowns
+  it.skip('Verificando se no drop down de womem, tem os elementos necessarios', () => {
     // Flutuando Sobre Os Elementos
     cy.get('#block_top_menu > ul > li:nth-child(1) > ul').invoke(
       // Acao
@@ -76,8 +77,8 @@ describe('Primeiro conjunto de testes', () => {
     cy.get('a[title^="Summer"]').should('be.visible');
   });
 
-  // Caso 4
-  it('Verificar se os checkboxes estao funcionando', () => {
+  // Caso 4 -> Input Checkbox
+  it.skip('Verificar se os checkboxes estao funcionando', () => {
     cy.get('.sf-menu > :nth-child(2) > .sf-with-ul').as('MenuDresses');
     cy.get('@MenuDresses').click();
 
@@ -99,5 +100,56 @@ describe('Primeiro conjunto de testes', () => {
     cy.get(
       '[class="nomargin hiddable col-lg-6"]:has(a[href*="categories-summer_dresses"]) input',
     ).should('not.checked');
+  });
+
+  // Caso 5 -> Input Select
+  it.skip('Verificar se os dropdowns do array estao funcionando', () => {
+    // Verificando input do type select
+    cy.get('.sf-menu > :nth-child(2) > .sf-with-ul').as('MenuDresses');
+    cy.get('@MenuDresses').click();
+
+    cy.wait(5000);
+    // Select -> para selecionar um item em um input select
+    cy.get('#selectProductSort').select('In stock').should('have.value', 'quantity:desc');
+  });
+
+  // Caso 6
+  it('Criando uma compre do zero', () => {
+    cy.get('#search_query_top').type('Blouse');
+    cy.get('#searchbox > .btn').click();
+
+    cy.get(
+      '.product-container:has(.product-name[title="Blouse"]) .ajax_add_to_cart_button',
+    ).click();
+
+    cy.get('.button-medium[title="Proceed to checkout"]').click();
+
+    // Verificar texto modo 1
+    cy.get('tr[id^="product"]')
+      .find('.product-name > a')
+      .should('contain.text', 'Blouse');
+
+    // Verificar texto mode 2
+    cy.get('tr[id^="product"]')
+      .find('.price')
+      .then($el => {
+        expect($el, 'Preço Contêm 27.00').contain.text('27.00');
+      });
+
+    cy.get('.cart_navigation > .button').click();
+
+    // Login
+    cy.get('#email').type('andreaquilau@gmail.com');
+    cy.get('#passwd').type('123456');
+    cy.get('#SubmitLogin').click();
+    cy.get('.cart_navigation > .button').click();
+    cy.get('#cgv').check().should('be.checked');
+    cy.get('.cart_navigation > .button').click();
+    cy.get('.bankwire').click();
+    cy.get('.cart_navigation > .button').click();
+    cy.get('.cheque-indent > .dark').should(
+      'contain.text',
+      'Your order on My Store is complete.',
+    );
   });
 });

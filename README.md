@@ -1,7 +1,7 @@
-# cypress-moderno-udemy
+## Cypress Moderno
  Curso de Cypress Moderno
 
-#### Test Basic With Cypress
+### Test Basic With Cypress
 ```ts
 describe('Primeiro conjunto de testes', () => {
   // Before Initialize
@@ -159,3 +159,51 @@ describe('Primeiro conjunto de testes', () => {
   });
 });
 ```
+
+### Hooks Cypress
+Cypress também fornece ganchos (emprestados do Mocha).<br/>
+
+##### A ordem de execução do gancho e do teste é a seguinte:
+
+ * Todos os hooks before () rodam (uma vez)
+ * Todos os ganchos beforeEach () são executados
+ * Todos os ganchos afterEach () são executados
+ * Todos os ganchos after () rodam (uma vez)
+
+ ```ts
+  before(() => {
+
+  });
+
+  beforeEach(() => {
+
+  });
+
+  afterEach(() => {
+
+  });
+
+  after(() => {
+
+  });
+
+  describe('test hooks', () => {
+
+  });
+
+  context('test hooks', () => {
+
+  });
+
+  it('description test hooks', () => {
+
+  });
+
+  it.skip('description test hooks', () => {
+
+  });
+
+  it.only('description test hooks', () => {
+
+  });
+ ```

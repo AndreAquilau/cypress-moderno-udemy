@@ -22,5 +22,11 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     'no-use-before-define': 'off',
+    'func-names': 'off',
+    'eslint-disable-next-line no-var': 'off',
+    'eslint-disable-next-line vars-on-top': 'off',
+    'vars-on-top': 'off',
+    'no-var': 'off',
+    'no-console': 'off',
   },
 };

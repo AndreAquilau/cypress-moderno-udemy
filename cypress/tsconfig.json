@@ -2,6 +2,7 @@
   "extends": "../tsconfig.json",
   "include": [
     "../node_modules/cypress",
-    "*/*.ts"
-, "plugins/index.js", "plugins/cy-ts-preprocessor.js"  ]
+    "*/*.ts",
+    "plugins/index.js", "plugins/cy-ts-preprocessor.js",
+  ],
 }

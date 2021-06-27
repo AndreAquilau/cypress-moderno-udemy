@@ -324,7 +324,7 @@ Cypress também fornece ganchos (emprestados do Mocha).<br/>
 
     cy.get('#city .css-1uccc91-singleValue').should('contain.text', example.cidade);
 
-    cy.get('[class="btn btn-primary"]').check();
+    cy.get('[class="btn btn-primary"]').click();
   });
 });
  ```
